@@ -1,0 +1,30 @@
+div {
+  background-color: black;
+  color: lightyellow;
+  display: grid;
+  height: 100vh;
+}
+
+.counter {
+  color: #ff0101;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 60px;
+  text-align: center;
+  text-shadow:
+    0 0 5px #ff0101,
+    0 0 10px #ff0101,
+    0 0 20px #000;
+}
+
+input {
+  background-color: black;
+  color: white;
+}
+
+aside button {
+  background-color: black;
+  color: white;
+  border: none;
+  text-decoration: underline;
+  padding: 1em 1.618em;
+}
