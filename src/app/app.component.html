@@ -1,10 +1,20 @@
-<div id="countdown">
-  <section class="counter">
-    <output>
-      {{ counter$ | async }}
-    </output>
+<div class="countdown">
+  <section class="counter" *ngIf="counter$ | async; let counter; else instructions">
+    <output>{{ counter.hh[0] }}</output>
+    <output>{{ counter.hh[1] }}</output>
+    <span>:</span>
+    <output>{{ counter.mm[0] }}</output>
+    <output>{{ counter.mm[1] }}</output>
+    <span>:</span>
+    <output>{{ counter.ss[0] }}</output>
+    <output>{{ counter.ss[1] }}</output>
   </section>
-  <aside>
+  <ng-template #instructions>
+    <p>
+      Please select a time, like "1h 30m 50s" and press "Start".
+    </p>
+  </ng-template>
+  <aside class="controls">
     <button (click)="stop()" *ngIf="running">Stop</button>
     <button (click)="start()" *ngIf="!running">Start</button>
     <input type="number" [(ngModel)]="time" *ngIf="!running">

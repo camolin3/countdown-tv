@@ -8,7 +8,7 @@ import { finalize, map, startWith, take, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  counter$: Observable<string>;
+  counter$: Observable<{ hh: string[], mm: string[], ss: string[] }>;
   stop$ = new Subject();
   running = false;
   /**
@@ -19,15 +19,16 @@ export class AppComponent {
   start() {
     const format = n => {
       const floor = Math.floor(n);
-      return (floor < 10) ? '0' + floor : String(floor);
+      return ((floor < 10) ? '0' + floor : String(floor))
+        .split('');
     };
     this.running = true;
-    const el = document.getElementById('countdown');
-    el.mozRequestFullScreen();
+    /* const el = document.getElementById('countdown');
+    el.mozRequestFullScreen(); */
     this.counter$ = interval(1000).pipe(
       startWith(-1),
       map(s => this.time - s - 1),
-      map(s => [format(s / 3600), format(s / 60), format(s % 60)].join(':')),
+      map(s => ({ hh: format(s / 3600), mm: format(s / 60), ss: format(s % 60) })),
       take(1 + this.time),
       takeUntil(this.stop$),
       finalize(() => this.running = false),
@@ -35,7 +36,7 @@ export class AppComponent {
   }
 
   stop() {
-    document.mozCancelFullScreen();
+    /* document.mozCancelFullScreen(); */
     this.stop$.next();
   }
 

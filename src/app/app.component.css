@@ -1,27 +1,36 @@
-div {
+.countdown {
   background-color: black;
   color: lightyellow;
   display: grid;
+  grid-gap: 1vh;
+  grid-template-rows: 90vh 1fr;
   height: 100vh;
 }
 
-.counter {
-  color: #ff0101;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 60px;
+.countdown > * {
+  justify-self: center;
   text-align: center;
+}
+
+.counter {
+  align-self: center;
+  color: #ff0101;
+  display: grid;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25vmin;
+  grid-template-columns: 1ch 1ch 0.5ch 1ch 1ch 0.5ch 1ch 1ch;
   text-shadow:
     0 0 5px #ff0101,
     0 0 10px #ff0101,
     0 0 20px #000;
 }
 
-input {
+.controls input {
   background-color: black;
   color: white;
 }
 
-aside button {
+.controls button {
   background-color: black;
   color: white;
   border: none;
