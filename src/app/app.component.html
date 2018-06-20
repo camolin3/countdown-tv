@@ -15,8 +15,14 @@
     </p>
   </ng-template>
   <aside class="controls">
-    <button (click)="stop()" *ngIf="running">Stop</button>
-    <button (click)="start()" *ngIf="!running">Start</button>
-    <input type="number" [(ngModel)]="time" *ngIf="!running">
+    <ng-template *ngIf="running; else stopped">
+      <button (click)="stop()">Pause</button>
+      <button (click)="stop()" *ngIf="running">Stop</button>
+    </ng-template>
+    <ng-template #stopped>
+      <button (click)="continue()">Continue</button>
+      <button (click)="start()">Start</button>
+      <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr">
+    </ng-template>
   </aside>
 </div>
