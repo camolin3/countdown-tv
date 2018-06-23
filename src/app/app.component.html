@@ -14,15 +14,15 @@
       Please select a time and press "Start".
     </p>
   </ng-template>
-  <aside class="controls">
+  <form class="controls" (submit)="start()">
     <ng-template [ngIf]="running" [ngIfElse]="stopped">
-      <button (click)="pauseOrContinue()">⏯ Pause/Continue</button>
-      <button (click)="stop()" *ngIf="running">⏹ Stop</button>
+      <button type="button" (click)="pauseOrContinue()">⏯ Pause/Continue</button>
+      <button type="button" (click)="stop()" *ngIf="running">⏹ Stop</button>
     </ng-template>
     <ng-template #stopped>
-      <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr">
+      <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr" name="timeStr">
       <label><input type="checkbox" (change)="toogleFullScreen($event.target)">Go full screen</label>
-      <button (click)="start()">▶️ Start</button>
+      <button type="submit">▶️ Start</button>
     </ng-template>
-  </aside>
+  </form>
 </div>

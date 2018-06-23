@@ -28,12 +28,14 @@ export class AppComponent {
   }
 
   start() {
+    this.running = true;
+    this.paused$.next(false);
+
     const format = n => {
       const floor = Math.floor(n);
       return ((floor < 10) ? '0' + floor : String(floor))
         .split('');
     };
-    setTimeout(() => this.running = true);
     let currentNumber = this.time;
     const numbers$ = timer(0, 1000).pipe(
       map(s => currentNumber--),
