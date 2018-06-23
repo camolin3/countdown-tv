@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   start() {
-    this.running = true;
+    setTimeout(() => this.running = true);
     this.paused$.next(false);
 
     const format = n => {

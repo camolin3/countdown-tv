@@ -1,4 +1,4 @@
-<div class="countdown" [ngClass]="{'config': !running}">
+<form class="countdown" [ngClass]="{'config': !running}" (submit)="start()">
   <section class="counter" *ngIf="counter$ | async; let counter; else instructions">
     <output>{{ counter.hh[0] }}</output>
     <output>{{ counter.hh[1] }}</output>
@@ -14,15 +14,16 @@
       Please select a time and press "Start".
     </p>
   </ng-template>
-  <form class="controls" (submit)="start()">
-    <ng-template [ngIf]="running" [ngIfElse]="stopped">
-      <button type="button" (click)="pauseOrContinue()">⏯ Pause/Continue</button>
-      <button type="button" (click)="stop()" *ngIf="running">⏹ Stop</button>
-    </ng-template>
-    <ng-template #stopped>
-      <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr" name="timeStr">
-      <label><input type="checkbox" (change)="toogleFullScreen($event.target)">Go full screen</label>
-      <button type="submit">▶️ Start</button>
-    </ng-template>
-  </form>
-</div>
+  <ng-template [ngIf]="running" [ngIfElse]="stopped">
+    <button type="button" (click)="pauseOrContinue()">⏯ Pause/Continue</button>
+    <button type="button" (click)="stop()" *ngIf="running">⏹ Stop</button>
+  </ng-template>
+  <ng-template #stopped>
+    <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr" name="timeStr">
+    <div>
+      <input type="checkbox" (change)="toogleFullScreen($event.target)" id="fullScreen">
+      <label for="fullScreen">Go full screen</label>
+    </div>
+    <button type="submit">▶️ Start</button>
+  </ng-template>
+</form>

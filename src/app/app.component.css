@@ -3,10 +3,12 @@
   color: var(--color);
   display: grid;
   font-family: Arial, Helvetica, sans-serif;
-  grid-gap: 1vh;
-  grid-template-rows: 1fr 2em;
+  grid-row-gap: 5px;
+  grid-template-rows: 1fr 48px;
+  grid-auto-rows: 48px;
   height: 100vh;
   overflow: hidden;
+  padding: 1em 0;
   transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out;
 }
 
@@ -26,7 +28,7 @@
   color: var(--counter-color);
   display: grid;
   font-family: 'Orbitron', sans-serif;
-  font-size: 25vmin;
+  font-size: 12vw;
   grid-template-columns: repeat(2, 1ch) 0.5ch repeat(2, 1ch) 0.5ch repeat(2, 1ch);
   text-shadow:
     0 0 5px var(--counter-color),
@@ -43,20 +45,25 @@
     0 0 20px var(--color);
 }
 
-.controls > * {
-  margin: 0 1em;
-}
-
-.controls > button, .controls > input {
-  background-color: var(--background-color);
-  border: none;
-  border: var(--background-color) 1px solid;
+button, input, label {
+  background-color: #0000;
   color: var(--color);
-  height: calc(2em - 2px);
+  height: 100%;
   padding: 0 1em;
-  transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out;
+  transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out, border 1000ms ease-in-out;
 }
-.config .controls button {
-  background-color: var(--color);
+button {
+  width: 80%;
+  border: #666 1px solid;
+}
+input {
+  height: 60%;
+  border: none;
+  border-bottom: var(--background-color) 1px solid;
+}
+.config button, .config input, .config label {
   color: var(--background-color);
+}
+.config button {
+  border: var(--background-color) 1px solid;
 }
