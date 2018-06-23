@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
-import { Observable, Subject, interval, never, BehaviorSubject } from 'rxjs';
-import { finalize, map, startWith, take, takeUntil, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, never, Observable, Subject, timer } from 'rxjs';
+import { finalize, map, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
+
+interface TimeArray {
+  hh: string[];
+  mm: string[];
+  ss: string[];
+}
 
 @Component({
   selector: 'app-root',
@@ -8,14 +14,13 @@ import { finalize, map, startWith, take, takeUntil, switchMap, tap } from 'rxjs/
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  counter$: Observable<{ hh: string[], mm: string[], ss: string[] }>;
+  counter$: Observable<TimeArray>;
   paused$ = new BehaviorSubject<boolean>(false);
   stop$ = new Subject();
+  goFullScreen = false;
   running = false;
-  timeStr = '1h 30m';
-  /**
-   * Time, in seconds, of the current countdown.
-   */
+  timeStr = '1h 30m 50s';
+
   get time() {
     const [, h, m, s] = this.timeStr.match(/(\d*\.?\d*h\s*)?(\d*\.?\d*m\s*)?(\d*\.?\d*s\s*)?/);
     const strToNumber = (str) => Number((str || '0').match(/\d*\.?\d+/)[0]);
@@ -28,34 +33,29 @@ export class AppComponent {
       return ((floor < 10) ? '0' + floor : String(floor))
         .split('');
     };
-    this.running = true;
+    setTimeout(() => this.running = true);
     /* const el = document.getElementById('countdown');
     el.mozRequestFullScreen(); */
-    const numbers$ = interval(1000).pipe(
-      startWith(-1),
-      map(s => this.time - s - 1),
-      take(1 + this.time),
-      finalize(() => console.log('why?')),
+    let currentNumber = this.time;
+    const numbers$ = timer(0, 1000).pipe(
+      map(s => currentNumber--),
+      takeWhile(n => n >= 0),
+      finalize(() => this.running = currentNumber >= 0),
     );
     this.counter$ = this.paused$.pipe(
       switchMap(paused => paused ? never() : numbers$),
       map(s => ({ hh: format(s / 3600), mm: format((s % 3600) / 60), ss: format(s % 60) })),
       takeUntil(this.stop$),
-      finalize(() => this.running = false),
+      finalize(() => setTimeout(() => this.running = false)),
     );
   }
 
   stop() {
-    /* document.mozCancelFullScreen(); */
     this.stop$.next();
   }
 
-  pause() {
-    this.paused$.next(true);
-  }
-
-  continue() {
-    this.paused$.next(false);
+  pauseOrContinue() {
+    this.paused$.next(!this.paused$.value);
   }
 
 }

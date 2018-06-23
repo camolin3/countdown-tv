@@ -1,4 +1,4 @@
-<div class="countdown">
+<div class="countdown" [ngClass]="{'config': !running}">
   <section class="counter" *ngIf="counter$ | async; let counter; else instructions">
     <output>{{ counter.hh[0] }}</output>
     <output>{{ counter.hh[1] }}</output>
@@ -11,18 +11,18 @@
   </section>
   <ng-template #instructions>
     <p>
-      Please select a time, like "1h 30m 50s" and press "Start".
+      Please select a time and press "Start".
     </p>
   </ng-template>
   <aside class="controls">
-    <ng-template *ngIf="running; else stopped">
-      <button (click)="stop()">Pause</button>
-      <button (click)="stop()" *ngIf="running">Stop</button>
+    <ng-template [ngIf]="running" [ngIfElse]="stopped">
+      <button (click)="pauseOrContinue()">⏯ Pause/Continue</button>
+      <button (click)="stop()" *ngIf="running">⏹ Stop</button>
     </ng-template>
     <ng-template #stopped>
-      <button (click)="continue()">Continue</button>
-      <button (click)="start()">Start</button>
       <input pattern="(\d*h\s*)?(\d*m\s*)?(\d*s\s*)?" [(ngModel)]="timeStr">
+      <label><input type="checkbox" [(ngModel)]="goFullScreen">Go full screen</label>
+      <button (click)="start()">▶️ Start</button>
     </ng-template>
   </aside>
 </div>
