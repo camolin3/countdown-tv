@@ -43,6 +43,10 @@
     0 0 20px var(--color);
 }
 
+.controls > * {
+  margin: 0 1em;
+}
+
 .controls > button, .controls > input {
   background-color: var(--background-color);
   border: none;

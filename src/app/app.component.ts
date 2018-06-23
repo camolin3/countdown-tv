@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, never, Observable, Subject, timer } from 'rxjs';
 import { finalize, map, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
+import * as screenfull from 'screenfull';
 
 interface TimeArray {
   hh: string[];
@@ -17,7 +18,6 @@ export class AppComponent {
   counter$: Observable<TimeArray>;
   paused$ = new BehaviorSubject<boolean>(false);
   stop$ = new Subject();
-  goFullScreen = false;
   running = false;
   timeStr = '1h 30m 50s';
 
@@ -34,8 +34,6 @@ export class AppComponent {
         .split('');
     };
     setTimeout(() => this.running = true);
-    /* const el = document.getElementById('countdown');
-    el.mozRequestFullScreen(); */
     let currentNumber = this.time;
     const numbers$ = timer(0, 1000).pipe(
       map(s => currentNumber--),
@@ -56,6 +54,13 @@ export class AppComponent {
 
   pauseOrContinue() {
     this.paused$.next(!this.paused$.value);
+  }
+
+  toogleFullScreen({ checked }) {
+    if (!screenfull.enabled) {
+      return;
+    }
+    return checked ? screenfull.request() : screenfull.exit();
   }
 
 }
