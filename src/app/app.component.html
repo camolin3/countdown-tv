@@ -1,6 +1,6 @@
 <label class="fullScreen">
   <input type="checkbox" (change)="toogleFullScreen($event.target)" id="fullScreen">
-  <span>Full screen</span>
+  <span>Toogle fullscreen</span>
 </label>
 <form class="countdown" [ngClass]="{'config': !running}" (submit)="start()">
   <section class="counter" *ngIf="counter$ | async; let counter; else instructions">

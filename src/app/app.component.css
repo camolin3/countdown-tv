@@ -1,8 +1,14 @@
 .fullScreen {
   color: var(--running-color);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
   position: absolute;
   right: 1vmax;
+  text-decoration: underline var(--running-color) dashed;
   top: 1vmax;
+}
+.fullScreen input[type=checkbox] {
+  display: none;
 }
 
 .countdown {
@@ -45,7 +51,7 @@
 
 }
 .config .counter {
-  color: var(--running-color);
+  color: var(---config-background-color);
   text-shadow:
     0 0 5px var(--running-background-color),
     0 0 10px var(--running-background-color),
