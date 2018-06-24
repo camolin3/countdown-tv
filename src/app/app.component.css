@@ -1,20 +1,27 @@
+.fullScreen {
+  color: var(--running-color);
+  position: absolute;
+  right: 1vmax;
+  top: 1vmax;
+}
+
 .countdown {
-  background-color: var(--background-color);
-  color: var(--color);
+  background-color: var(--running-background-color);
+  color: var(--running-color);
   display: grid;
   font-family: Arial, Helvetica, sans-serif;
+  grid-auto-rows: 48px;
   grid-row-gap: 5px;
   grid-template-rows: 1fr 48px;
-  grid-auto-rows: 48px;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   padding: 1em 0;
   transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out;
 }
 
 .countdown.config {
-  background-color: var(--color);
-  color: var(--background-color);
+  background-color: var(--config-background-color);
+  color: var(--running-background-color);
 }
 
 .countdown > * {
@@ -25,45 +32,43 @@
 
 .counter {
   align-self: center;
-  color: var(--counter-color);
+  color: var(--running-counter-color);
   display: grid;
   font-family: 'Orbitron', sans-serif;
   font-size: 12vw;
   grid-template-columns: repeat(2, 1ch) 0.5ch repeat(2, 1ch) 0.5ch repeat(2, 1ch);
   text-shadow:
-    0 0 5px var(--counter-color),
-    0 0 10px var(--counter-color),
-    0 0 20px var(--background-color);
+    0 0 5px var(--running-counter-color),
+    0 0 10px var(--running-counter-color),
+    0 0 20px var(--running-background-color);
   transition: color 1000ms ease-in-out, text-shadow 1000ms ease-in-out;
 
 }
 .config .counter {
-  color: var(--color);
+  color: var(--running-color);
   text-shadow:
-    0 0 5px var(--background-color),
-    0 0 10px var(--background-color),
-    0 0 20px var(--color);
+    0 0 5px var(--running-background-color),
+    0 0 10px var(--running-background-color),
+    0 0 20px var(--running-color);
 }
 
-button, input, label {
-  background-color: #0000;
-  color: var(--color);
+.countdown > button,
+.countdown > input,
+.countdown > label {
+  background-color: var(--transparent);
+  color: var(--running-color);
   height: 100%;
-  padding: 0 1em;
   transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out, border 1000ms ease-in-out;
 }
-button {
+.countdown > button {
   width: 80%;
-  border: #666 1px solid;
+  border: var(--running-border) 0.1px dashed;
 }
-input {
+.countdown > input {
   height: 60%;
   border: none;
-  border-bottom: var(--background-color) 1px solid;
+  border-bottom: var(--running-background-color) 1px solid;
 }
 .config button, .config input, .config label {
-  color: var(--background-color);
-}
-.config button {
-  border: var(--background-color) 1px solid;
+  color: var(--running-background-color);
 }

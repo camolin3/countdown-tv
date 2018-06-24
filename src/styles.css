@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --background-color: #000505;
-  --color: #fefeff;
-  --counter-color: #ff0101;
+  --config-background-color: #fff;
+  --running-background-color: #000505;
+  --running-border: #222;
+  --running-color: #666;
+  --running-counter-color: #ff0101;
+  --transparent: #0000;
 }
 
 html {
