@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   start() {
-    setTimeout(() => this.running = true);
+    this.running = true;
     this.paused$.next(false);
 
     const format = n => {
@@ -40,13 +40,13 @@ export class AppComponent {
     const numbers$ = timer(0, 1000).pipe(
       map(s => currentNumber--),
       takeWhile(n => n >= 0),
-      finalize(() => this.running = currentNumber >= 0),
+      finalize(() => { if (currentNumber <= 0) { this.stop(); } }),
     );
     this.counter$ = this.paused$.pipe(
       switchMap(paused => paused ? never() : numbers$),
       map(s => ({ hh: format(s / 3600), mm: format((s % 3600) / 60), ss: format(s % 60) })),
       takeUntil(this.stop$),
-      finalize(() => setTimeout(() => this.running = false)),
+      finalize(() => this.running = false),
     );
   }
 
